@@ -6,6 +6,9 @@ import pickle
 model = pickle.load(open("model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
+# Page setup
+st.set_page_config(page_title="Student Segmentation App", page_icon="📊")
+
 # App title
 st.title("Student Segmentation App")
 
@@ -51,10 +54,9 @@ G3 = st.number_input(
 )
 
 # Predict button
-# Predict button
 if st.button("Predict Cluster"):
 
-    # Create dataframe
+    # Create input dataframe
     input_data = pd.DataFrame({
         'age': [age],
         'studytime': [studytime],
@@ -71,35 +73,14 @@ if st.button("Predict Cluster"):
     # Predict cluster
     prediction = model.predict(scaled_data)
 
-    # Display result
-    # Predict button
-if st.button("Predict Cluster"):
-
-    # Create dataframe
-    input_data = pd.DataFrame({
-        'age': [age],
-        'studytime': [studytime],
-        'failures': [failures],
-        'absences': [absences],
-        'G1': [G1],
-        'G2': [G2],
-        'G3': [G3]
-    })
-
-    # Scale input
-    scaled_data = scaler.transform(input_data)
-
-    # Predict cluster
-    prediction = model.predict(scaled_data)
-
-    # Cluster interpretation
+    # Display result with interpretation
     if prediction[0] == 0:
 
         st.success("🎓 High Performing Student")
 
         st.write("""
         This student demonstrates strong academic performance
-        and effective study behavior.
+        and consistent study behavior.
         """)
 
     elif prediction[0] == 1:
@@ -108,7 +89,7 @@ if st.button("Predict Cluster"):
 
         st.write("""
         This student shows moderate academic performance
-        and average study consistency.
+        with average study habits and results.
         """)
 
     else:
@@ -116,9 +97,6 @@ if st.button("Predict Cluster"):
         st.error("⚠️ Student Needs Academic Support")
 
         st.write("""
-        This student may require additional academic support
-        and improved study habits.
+        This student may require academic intervention,
+        improved study habits, and closer monitoring.
         """)
-
-    
-   
