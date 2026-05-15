@@ -72,4 +72,32 @@ if st.button("Predict Cluster"):
     prediction = model.predict(scaled_data)
 
     # Display result
-    st.success(f"Student belongs to Cluster {prediction[0]}")
+    if prediction[0] == 0:
+
+    st.success("🎓 High Performing Student")
+
+    st.info("""
+    Recommendation:
+    Continue maintaining strong study habits
+    and academic consistency.
+    """)
+
+elif prediction[0] == 1:
+
+    st.warning("📘 Average Performing Student")
+
+    st.info("""
+    Recommendation:
+    Increased study consistency and reduced
+    distractions may improve performance.
+    """)
+
+else:
+
+    st.error("⚠️ Student Needs Academic Support")
+
+    st.info("""
+    Recommendation:
+    Additional tutoring, academic counseling,
+    and structured study planning may help.
+    """)
