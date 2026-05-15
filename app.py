@@ -72,32 +72,53 @@ if st.button("Predict Cluster"):
     prediction = model.predict(scaled_data)
 
     # Display result
+    # Predict button
+if st.button("Predict Cluster"):
+
+    # Create dataframe
+    input_data = pd.DataFrame({
+        'age': [age],
+        'studytime': [studytime],
+        'failures': [failures],
+        'absences': [absences],
+        'G1': [G1],
+        'G2': [G2],
+        'G3': [G3]
+    })
+
+    # Scale input
+    scaled_data = scaler.transform(input_data)
+
+    # Predict cluster
+    prediction = model.predict(scaled_data)
+
+    # Cluster interpretation
     if prediction[0] == 0:
 
-    st.success("🎓 High Performing Student")
+        st.success("🎓 High Performing Student")
 
-    st.info("""
-    Recommendation:
-    Continue maintaining strong study habits
-    and academic consistency.
-    """)
+        st.write("""
+        This student demonstrates strong academic performance
+        and effective study behavior.
+        """)
 
-elif prediction[0] == 1:
+    elif prediction[0] == 1:
 
-    st.warning("📘 Average Performing Student")
+        st.warning("📘 Average Performing Student")
 
-    st.info("""
-    Recommendation:
-    Increased study consistency and reduced
-    distractions may improve performance.
-    """)
+        st.write("""
+        This student shows moderate academic performance
+        and average study consistency.
+        """)
 
-else:
+    else:
 
-    st.error("⚠️ Student Needs Academic Support")
+        st.error("⚠️ Student Needs Academic Support")
 
-    st.info("""
-    Recommendation:
-    Additional tutoring, academic counseling,
-    and structured study planning may help.
-    """)
+        st.write("""
+        This student may require additional academic support
+        and improved study habits.
+        """)
+
+    
+   
